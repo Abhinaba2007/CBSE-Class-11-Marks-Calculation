@@ -1,210 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Educational Animated Website</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      scroll-behavior: smooth;
-      background-color: #f4f4f4;
-      overflow-x: hidden;
-      height: 100%;
-    }
-
-    section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      text-align: center;
-      min-height: 100vh;
-      padding: 40px 0;
-    }
-
-    h1 {
-      font-size: 3rem;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeIn 7s ease-out forwards;
-      margin-left: 70px;
-    }
-
-    body {
-      background-color: #f4f4f4;
-      overflow-x: hidden;
-      background-image: url('https://static.vecteezy.com/system/resources/previews/008/617/161/non_2x/abstract-gradient-pastel-blue-and-purple-background-neon-pastel-color-template-for-website-or-presentation-free-free-vector.jpg');
-      background-size: cover;
-      background-position: center;
-      animation: backgroundAnimation 10s infinite alternate;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #ffffff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #0078d4;
-      font-weight: bold;
-      margin: 0 20px;
-      transition: color 0.3s ease;
-    }
-
-    header a:hover {
-      color: #005bb5;
-    }
-
-    .class-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .class-link {
-      font-size: 1.5rem;
-      background-color: #0078d4;
-      color: white;
-      padding: 20px 40px;
-      border-radius: 8px;
-      text-decoration: none;
-      display: block;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .class-link:hover {
-      background-color: #005bb5;
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 20px;
-        text-align: center;
-      }
-
-      header a {
-        margin: 10px 0;
-      }
-
-      .class-container {
-        grid-template-columns: 1fr;
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      .class-link {
-        font-size: 1.2rem;
-        padding: 15px 30px;
-      }
-    }
-
-    footer {
-      text-align: center;
-      padding: 5px;
-      background-color: #333;
-      color: white;
-      position: relative;
-      bottom: 0;
-      width: 100%;
-      font-size: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div>
-      <a href="#classes">Home</a>
-      <a href="class9.html">Class 9</a>
-      <a href="class10.html">Class 10</a>
-      <a href="class11.html">Class 11</a>
-      <a href="class12.html">Class 12</a>
-      <a href="#live-class">Live Class</a>
-      <a href="#about">About Us</a>
-      <a href="#contact">Contact</a>
+    <div class="container">
+        <h2>Marks Calculator</h2>
+        <label>Enter PT-1 Marks (out of 40):</label>
+        <input type="number" id="pt1">
+        
+        <label>Enter PT-2 Marks (out of 40):</label>
+        <input type="number" id="pt2">
+        
+        <label>Enter Half-Yearly Marks:</label>
+        <input type="number" id="halfYearly">
+        
+        <label>Enter Total Marks of Half-Yearly:</label>
+        <input type="number" id="totalMarks">
+        
+        <button onclick="calculateMarks()">Calculate Marks</button>
+        <p id="result"></p>
+        
+        <h3>SEE Calculation</h3>
+        <label>Enter SEE Marks:</label>
+        <input type="number" id="seeMarks">
+        
+        <label>Enter SEE Total Marks:</label>
+        <input type="number" id="seeTotal">
+        
+        <button onclick="calculateSEE()">Calculate SEE</button>
+        <p id="seeResult"></p>
     </div>
-  </header>
 
-  <section id="classes">
-    <h1>Welcome to the Educational Hub</h1>
-    <p>Explore study materials, quizzes, and live classes for different grades.</p>
-    <div class="class-container">
-      <a class="class-link" href="class9.html">Class 9</a>
-      <a class="class-link" href="class10.html">Class 10</a>
-      <a class="class-link" href="class11.html">Class 11</a>
-      <a class="class-link" href="class12.html">Class 12</a>
-    </div>
-  </section>
-
-  <section id="live-class">
-    <h2>Join Live Classes</h2>
-    <p>Access live classes and interact with expert educators in real-time every Friday at 9:00 PM.</p>
-    <button onclick="joinNow()">Join Now</button>
-</section>
-
-<section id="about">
-    <h2>About Us</h2>
-    <p>We aim to provide high-quality educational content and interactive sessions to enhance learning experiences.</p>
-    <a href="#about">Learn More</a>
-</section>
-
-<section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-    </form>
-</section>
-
-<footer>
-    <p>&copy; 2025 Educational Hub | All rights reserved.</p>
-</footer>
-
-<script>
-    // Live Class System
-    function joinNow() {
-        const url = "https://meet.google.com/new"; // Replace with your live class URL
-        window.open(url, "_blank");
-    }
-</script>
-
-
-
+    <script>
+        function calculateMarks() {
+            let mo1 = parseFloat(document.getElementById("pt1").value) || 0;
+            let mo2 = parseFloat(document.getElementById("pt2").value) || 0;
+            let mo3 = parseFloat(document.getElementById("halfYearly").value) || 0;
+            let tm = parseFloat(document.getElementById("totalMarks").value) || 1;
+            
+            let cal1 = (mo1 / 40) * 10;
+            let cal2 = (mo2 / 40) * 10;
+            let cal3 = (mo3 / tm) * 30;
+            let totalMarks = cal1 + cal2 + cal3;
+            let neededPercent = 33 - totalMarks;
+            
+            document.getElementById("result").innerHTML = `PT-1: ${cal1.toFixed(2)}, PT-2: ${cal2.toFixed(2)}, Half-Yearly: ${cal3.toFixed(2)}<br>Total: ${totalMarks.toFixed(2)}<br>Needed: ${neededPercent.toFixed(2)}%`;
+        }
+        
+        function calculateSEE() {
+            let x = parseFloat(document.getElementById("seeMarks").value) || 0;
+            let m = parseFloat(document.getElementById("seeTotal").value) || 1;
+            let c = (x / m) * 50;
+            document.getElementById("seeResult").innerHTML = `SEE Scaled Marks: ${c.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
