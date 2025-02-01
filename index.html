@@ -7,43 +7,41 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
             background: linear-gradient(to bottom, #12372A, #436850, #ADBC9F, #FBFADA);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            text-align: center;
+            padding: 20px;
         }
         .container {
             max-width: 400px;
-            padding: 20px;
             background: white;
+            padding: 20px;
+            margin: auto;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            animation: fadeIn 1s forwards;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in;
         }
         input, button {
             width: 90%;
             padding: 10px;
             margin: 5px 0;
-            border: none;
             border-radius: 5px;
-        }
-        input {
-            border: 1px solid #436850;
+            border: 1px solid #ccc;
         }
         button {
-            background-color: #28a745;
+            background-color: #436850;
             color: white;
+            border: none;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.3s;
+            transition: background 0.3s;
         }
         button:hover {
-            background-color: #218838;
-            transform: scale(1.05);
+            background-color: #12372A;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -56,28 +54,28 @@
         <h2>Marks Calculator</h2>
         <label>Enter PT-1 Marks (out of 40):</label>
         <input type="number" id="pt1">
-        
+
         <label>Enter PT-2 Marks (out of 40):</label>
         <input type="number" id="pt2">
-        
+
         <label>Enter Half-Yearly Marks:</label>
         <input type="number" id="halfYearly">
-        
+
         <label>Enter Total Marks of Half-Yearly:</label>
         <input type="number" id="totalMarks">
-        
+
         <button onclick="calculateMarks()">Calculate Marks</button>
-        <p id="result"></p>
-        
+        <p id="result" class="result"></p>
+
         <h3>SEE Calculation</h3>
         <label>Enter SEE Marks:</label>
         <input type="number" id="seeMarks">
-        
+
         <label>Enter SEE Total Marks:</label>
         <input type="number" id="seeTotal">
-        
+
         <button onclick="calculateSEE()">Calculate SEE</button>
-        <p id="seeResult"></p>
+        <p id="seeResult" class="result"></p>
     </div>
 
     <script>
@@ -93,14 +91,18 @@
             let totalMarks = cal1 + cal2 + cal3;
             let neededPercent = 33 - totalMarks;
             
-            document.getElementById("result").innerHTML = `PT-1: ${cal1.toFixed(2)}, PT-2: ${cal2.toFixed(2)}, Half-Yearly: ${cal3.toFixed(2)}<br>Total: ${totalMarks.toFixed(2)}<br>Needed: ${neededPercent.toFixed(2)}%`;
+            let result = document.getElementById("result");
+            result.innerHTML = `PT-1: ${cal1.toFixed(2)}, PT-2: ${cal2.toFixed(2)}, Half-Yearly: ${cal3.toFixed(2)}<br>Total: ${totalMarks.toFixed(2)}<br>Needed: ${neededPercent.toFixed(2)}%`;
+            result.style.opacity = 1;
         }
         
         function calculateSEE() {
             let x = parseFloat(document.getElementById("seeMarks").value) || 0;
             let m = parseFloat(document.getElementById("seeTotal").value) || 1;
             let c = (x / m) * 50;
-            document.getElementById("seeResult").innerHTML = `SEE Scaled Marks: ${c.toFixed(2)}`;
+            let seeResult = document.getElementById("seeResult");
+            seeResult.innerHTML = `SEE Scaled Marks: ${c.toFixed(2)}`;
+            seeResult.style.opacity = 1;
         }
     </script>
 </body>
