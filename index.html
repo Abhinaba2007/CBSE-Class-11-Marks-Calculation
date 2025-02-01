@@ -3,106 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marks Calculator</title>
+    <title>Marks Calculation</title>
     <style>
         body {
+            background: linear-gradient(45deg, #12372A, #436850, #ADBC9F, #FBFADA);
+            animation: backgroundShift 10s infinite alternate;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #12372A, #436850, #ADBC9F, #FBFADA);
-            text-align: center;
+            color: #fff;
             padding: 20px;
+            transition: background-color 0.5s;
         }
+
+        @keyframes backgroundShift {
+            0% {
+                background: linear-gradient(45deg, #12372A, #436850, #ADBC9F, #FBFADA);
+            }
+            100% {
+                background: linear-gradient(45deg, #FBFADA, #ADBC9F, #436850, #12372A);
+            }
+        }
+
         .container {
-            max-width: 400px;
-            background: white;
-            padding: 20px;
+            max-width: 600px;
             margin: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease-in;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
-        input, button {
-            width: 90%;
+
+        input[type="number"] {
             padding: 10px;
-            margin: 5px 0;
+            margin: 10px 0;
+            width: 100%;
+            border: 2px solid #fff;
             border-radius: 5px;
-            border: 1px solid #ccc;
+            background-color: transparent;
+            color: #fff;
         }
+
         button {
+            padding: 10px 20px;
             background-color: #436850;
-            color: white;
+            color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
+            margin-top: 10px;
         }
+
         button:hover {
             background-color: #12372A;
         }
+
         .result {
-            font-weight: bold;
-            margin-top: 10px;
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            margin-top: 20px;
+            background-color: #ADBC9F;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Marks Calculator</h2>
-        <label>Enter PT-1 Marks (out of 40):</label>
-        <input type="number" id="pt1">
+        <h2>Marks Calculation</h2>
+        <div id="inputForm">
+            <label for="mo1">Enter the marks you obtained in PT-1 (out of 40): </label>
+            <input type="number" id="mo1">
+            
+            <label for="mo2">Enter the marks you obtained in PT-2 (out of 40): </label>
+            <input type="number" id="mo2">
 
-        <label>Enter PT-2 Marks (out of 40):</label>
-        <input type="number" id="pt2">
+            <label for="mo3">Enter the marks you obtained in Half-Yearly: </label>
+            <input type="number" id="mo3">
+            
+            <label for="tm">Total marks of Half-Yearly exam: </label>
+            <input type="number" id="tm">
+            
+            <button onclick="calculateMarks()">Calculate</button>
 
-        <label>Enter Half-Yearly Marks:</label>
-        <input type="number" id="halfYearly">
-
-        <label>Enter Total Marks of Half-Yearly:</label>
-        <input type="number" id="totalMarks">
-
-        <button onclick="calculateMarks()">Calculate Marks</button>
-        <p id="result" class="result"></p>
-
-        <h3>SEE Calculation</h3>
-        <label>Enter SEE Marks:</label>
-        <input type="number" id="seeMarks">
-
-        <label>Enter SEE Total Marks:</label>
-        <input type="number" id="seeTotal">
-
-        <button onclick="calculateSEE()">Calculate SEE</button>
-        <p id="seeResult" class="result"></p>
+            <div class="result" id="result"></div>
+        </div>
     </div>
 
     <script>
         function calculateMarks() {
-            let mo1 = parseFloat(document.getElementById("pt1").value) || 0;
-            let mo2 = parseFloat(document.getElementById("pt2").value) || 0;
-            let mo3 = parseFloat(document.getElementById("halfYearly").value) || 0;
-            let tm = parseFloat(document.getElementById("totalMarks").value) || 1;
-            
-            let cal1 = (mo1 / 40) * 10;
-            let cal2 = (mo2 / 40) * 10;
-            let cal3 = (mo3 / tm) * 30;
-            let totalMarks = cal1 + cal2 + cal3;
-            let neededPercent = 33 - totalMarks;
-            
-            let result = document.getElementById("result");
-            result.innerHTML = `PT-1: ${cal1.toFixed(2)}, PT-2: ${cal2.toFixed(2)}, Half-Yearly: ${cal3.toFixed(2)}<br>Total: ${totalMarks.toFixed(2)}<br>Needed: ${neededPercent.toFixed(2)}%`;
-            result.style.opacity = 1;
-        }
-        
-        function calculateSEE() {
-            let x = parseFloat(document.getElementById("seeMarks").value) || 0;
-            let m = parseFloat(document.getElementById("seeTotal").value) || 1;
-            let c = (x / m) * 50;
-            let seeResult = document.getElementById("seeResult");
-            seeResult.innerHTML = `SEE Scaled Marks: ${c.toFixed(2)}`;
-            seeResult.style.opacity = 1;
+            const mo1 = parseFloat(document.getElementById("mo1").value);
+            const mo2 = parseFloat(document.getElementById("mo2").value);
+            const mo3 = parseFloat(document.getElementById("mo3").value);
+            const tm = parseFloat(document.getElementById("tm").value);
+
+            if (isNaN(mo1) || isNaN(mo2) || isNaN(mo3) || isNaN(tm)) {
+                alert("Please enter all values.");
+                return;
+            }
+
+            // Calculating the scaled marks
+            const cal1 = (mo1 / 40) * 10;
+            const cal2 = (mo2 / 40) * 10;
+            const cal3 = (mo3 / tm) * 30;
+
+            // Total marks of three exams
+            const totalMarks = cal1 + cal2 + cal3;
+
+            // Subtracting value from 33 to see the needed percentage
+            const neededPercent = 33 - totalMarks;
+
+            let result = `
+                <p>PT-1 scaled marks: ${cal1}</p>
+                <p>PT-2 scaled marks: ${cal2}</p>
+                <p>Half-Yearly scaled marks: ${cal3}</p>
+                <p>Total Marks of Three exams: ${totalMarks}</p>
+                <p>Subtracting value from 33 to see the needed percentage: ${neededPercent}%</p>
+            `;
+
+            document.getElementById("result").innerHTML = result;
         }
     </script>
 </body>
